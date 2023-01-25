@@ -1,6 +1,9 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id "com.vanniktech.maven.publish" version "0.23.2"
 }
 
 android {
@@ -42,6 +45,40 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.DEFAULT)
+
+    signAllPublications()
+
+    coordinates("io.github.ashl7", "mylibrary", "1.0.0")
+
+    pom {
+        name = "My Library"
+        description = "A description of what my library does."
+        inceptionYear = "2023"
+        url = "https://github.com/ashl7/mylibrary/"
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "ashl7developer"
+                name = "Arash Nase"
+                url = "https://github.com/ashl7/"
+            }
+        }
+        scm {
+            url = "https://github.com/ashl7/mylibrary/"
+            connection = "scm:git:git://github.com/ashl7/mylibrary.git"
+            developerConnection = "scm:git:ssh://git@github.com/ashl7/mylibrary.git"
         }
     }
 }
